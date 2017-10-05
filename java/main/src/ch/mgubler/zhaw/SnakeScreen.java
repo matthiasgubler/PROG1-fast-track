@@ -57,16 +57,6 @@ public class SnakeScreen {
     }
 
     public void paintScreen() {
-        try {
-            screen.setCharacter(5, 5, new TextCharacter('*'));
-            screen.refresh();
-            Thread.sleep(50);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         screen.clear();
         for (int rowIndex = 0; rowIndex < height; rowIndex++) {
             for (int columnIndex = 0; columnIndex < width; columnIndex++) {
@@ -93,4 +83,31 @@ public class SnakeScreen {
         this.screenMatrix[x][y] = paintableObject.getSymbol();
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setScreenMatrix(Character[][] screenMatrix) {
+        this.screenMatrix = screenMatrix;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public void setScreen(Screen screen) {
+        this.screen = screen;
+    }
 }
