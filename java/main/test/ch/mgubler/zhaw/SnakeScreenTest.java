@@ -10,10 +10,10 @@ import java.io.PrintStream;
 import java.util.function.BinaryOperator;
 import java.util.stream.IntStream;
 
-import static ch.mgubler.zhaw.Screen.BLANK_FIELD;
-import static ch.mgubler.zhaw.Screen.WALL_CHAR;
+import static ch.mgubler.zhaw.SnakeScreen.BLANK_FIELD;
+import static ch.mgubler.zhaw.SnakeScreen.WALL_CHAR;
 
-public class ScreenTest {
+public class SnakeScreenTest {
 
     public static final int WALL_COUNT = 2;
 
@@ -50,7 +50,7 @@ public class ScreenTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-    private Screen testeeScreen;
+    private SnakeScreen testeeSnakeScreen;
 
     @BeforeEach
     public void setUp() {
@@ -60,18 +60,18 @@ public class ScreenTest {
 
 
         System.setOut(new PrintStream(outContent));
-        testeeScreen = new Screen(SnakeGame.SCREEN_WIDTH, SnakeGame.SCREEN_HEIGHT);
-        testeeScreen.init();
+        testeeSnakeScreen = new SnakeScreen(SnakeGame.SCREEN_HEIGHT, SnakeGame.SCREEN_WIDTH, null);
+        testeeSnakeScreen.init();
     }
 
     @Test
     public void init_test() {
-        Assertions.assertArrayEquals(INIT_SCREEN_EXPECTED, testeeScreen.getScreenMatrix());
+        Assertions.assertArrayEquals(INIT_SCREEN_EXPECTED, testeeSnakeScreen.getScreenMatrix());
     }
 
     @Test
     public void paintScreen_after_init_test() {
-        testeeScreen.paintScreen();
+        testeeSnakeScreen.paintScreen();
         Assertions.assertEquals(expectedSOUTStringInitialized, outContent.toString());
     }
 
