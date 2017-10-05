@@ -6,6 +6,9 @@ import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SnakeScreen {
 
@@ -21,11 +24,16 @@ public class SnakeScreen {
 
     private Screen screen;
 
-    public SnakeScreen(int height, int width, Screen screen) {
+    private List<PaintableObject> gameElements = new ArrayList<>();
+
+    private PaintableObject mainObject;
+
+    public SnakeScreen(int height, int width, Screen screen, PaintableObject mainObject) {
         this.height = height;
         this.width = width;
         screenMatrix = new Character[height][width];
         this.screen = screen;
+        this.mainObject = mainObject;
     }
 
     public void init() {
@@ -57,6 +65,7 @@ public class SnakeScreen {
     }
 
     public void paintScreen() {
+        setElementsOnScreen();
         screen.clear();
         for (int rowIndex = 0; rowIndex < height; rowIndex++) {
             for (int columnIndex = 0; columnIndex < width; columnIndex++) {
@@ -70,6 +79,17 @@ public class SnakeScreen {
         }
     }
 
+    private void setElementsOnScreen() {
+        //Paint Snake
+        setElementOnScreen(mainObject);
+
+        //Set Elements on Screen
+        for (PaintableObject gameElement : gameElements) {
+            setElementOnScreen(gameElement);
+        }
+
+    }
+
 
     public Character[][] getScreenMatrix() {
         return screenMatrix;
@@ -79,8 +99,9 @@ public class SnakeScreen {
         return this.screenMatrix[x][y];
     }
 
-    public void setElementOnScreen(int x, int y, PaintableObject paintableObject) {
-        this.screenMatrix[x][y] = paintableObject.getSymbol();
+    public void setElementOnScreen(PaintableObject paintableObject) {
+        System.out.println(MessageFormat.format("Painting element with Symbol ''{0}'' to Position [{1}][{2}]", paintableObject.getSymbol(), paintableObject.getPosition().getX(), paintableObject.getPosition().getY()));
+        this.screenMatrix[paintableObject.getPosition().getY()][paintableObject.getPosition().getX()] = paintableObject.getSymbol();
     }
 
     public int getWidth() {

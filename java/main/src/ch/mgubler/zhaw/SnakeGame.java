@@ -1,5 +1,6 @@
 package ch.mgubler.zhaw;
 
+import ch.mgubler.zhaw.objects.MoveablePosition;
 import ch.mgubler.zhaw.objects.Snake;
 import ch.mgubler.zhaw.textinput.ObjectMover;
 import com.googlecode.lanterna.screen.Screen;
@@ -15,6 +16,8 @@ public class SnakeGame {
 
     public static final int SCREEN_HEIGHT = 20;
     public static final int GAME_SPEED = 100;
+    public static final int SNAKE_START_Y = 5;
+    public static final int SNAKE_START_X = 5;
 
     private SnakeScreen gameSnakeScreen;
 
@@ -39,18 +42,19 @@ public class SnakeGame {
             e.printStackTrace();
         }
 
-        snake = new Snake();
+        snake = new Snake(new MoveablePosition(SNAKE_START_X, SNAKE_START_Y));
         mover = new ObjectMover(terminal, snake);
     }
 
     public void startGame() {
-        gameSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen);
+        gameSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen, snake);
         gameSnakeScreen.init();
 
         while (true) {
             try {
                 gameSnakeScreen.paintScreen();
-                mover.pollInput();
+                mover.pollDirectionChange();
+                mover.moveObject();
                 Thread.sleep(GAME_SPEED);
             } catch (InterruptedException e) {
                 //TODO wäää

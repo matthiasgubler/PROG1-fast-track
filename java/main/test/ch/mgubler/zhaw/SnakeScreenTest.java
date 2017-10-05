@@ -43,7 +43,6 @@ public class SnakeScreenTest {
     private static final char[] LINE_CONTENT_WITH_WALLS_CHAR_ARRAY = LINE_CONTENT_WITH_WALLS.toCharArray();
 
     private static final char[][] INIT_SCREEN_EXPECTED = new char[SCREEN_HEIGHT][SnakeGame.SCREEN_WIDTH];
-
     {
         //Init Expected Game Matrix with Walls on Top/Bottom and the regular Fieldcontent
         INIT_SCREEN_EXPECTED[0] = WALL_TOP_BOTTOM_CHAR_ARRAY;
@@ -60,7 +59,7 @@ public class SnakeScreenTest {
 
     @Before
     public void setUp() {
-        testeeSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen);
+        testeeSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen, null);
         testeeSnakeScreen.init();
     }
 

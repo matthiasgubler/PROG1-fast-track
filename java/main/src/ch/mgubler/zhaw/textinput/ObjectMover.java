@@ -1,45 +1,32 @@
 package ch.mgubler.zhaw.textinput;
 
-import ch.mgubler.zhaw.objects.PaintableObject;
-import com.googlecode.lanterna.input.KeyStroke;
+import ch.mgubler.zhaw.objects.Direction;
+import ch.mgubler.zhaw.objects.MoveableObject;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 
 public class ObjectMover {
 
-    private static final KeyStroke UP_W = KeyStroke.fromString("w");
-    private static final KeyStroke LEFT_A = KeyStroke.fromString("a");
-    private static final KeyStroke DOWN_S = KeyStroke.fromString("s");
-    private static final KeyStroke RIGHT_D = KeyStroke.fromString("d");
-
     private Terminal terminal;
 
-    public ObjectMover(Terminal terminal, PaintableObject moveableObject) {
+    private MoveableObject moveableObject;
+
+    public ObjectMover(Terminal terminal, MoveableObject moveableObject) {
         this.terminal = terminal;
+        this.moveableObject = moveableObject;
     }
 
-    public void pollInput() throws IOException {
-        KeyStroke input = terminal.pollInput();
-        if(UP_W == input){
-        }else if(LEFT_A == input){
+    public void pollDirectionChange() throws IOException {
+        Direction direction = Direction.getDirectionByKeyStroke(terminal.pollInput());
+        System.out.println(MessageFormat.format("Polled Direction {0}", direction.name()));
 
-        }else if(RIGHT_D == input){
-
-        }else if(DOWN_S == input){
-
-        }else{
-            if(input != null){
-                System.out.println("Pressed: "+input);
-            }
-        }
-
+        moveableObject.setCurrentDirection(direction);
     }
 
-    private void decideAction(KeyStroke input) {
-
-
-
+    public void moveObject() {
+        moveableObject.move();
     }
 
 }
