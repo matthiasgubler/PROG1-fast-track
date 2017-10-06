@@ -1,4 +1,4 @@
-package ch.mgubler.zhaw.objects;
+package ch.mgubler.zhaw.move;
 
 public class MoveablePosition extends Position {
 
@@ -6,19 +6,19 @@ public class MoveablePosition extends Position {
         super(x, y);
     }
 
-    public MoveablePosition moveLeft(){
+    public MoveablePosition moveLeft() {
         return new MoveablePosition(getX() - 1, getY());
     }
 
-    public MoveablePosition moveRight(){
-        return new MoveablePosition(getX() + 1 , getY());
+    public MoveablePosition moveRight() {
+        return new MoveablePosition(getX() + 1, getY());
     }
 
-    public MoveablePosition moveUp(){
+    public MoveablePosition moveUp() {
         return new MoveablePosition(getX(), getY() - 1);
     }
 
-    public MoveablePosition moveDown(){
+    public MoveablePosition moveDown() {
         return new MoveablePosition(getX(), getY() + 1);
     }
 

@@ -1,4 +1,6 @@
-package ch.mgubler.zhaw.objects;
+package ch.mgubler.zhaw.move;
+
+import ch.mgubler.zhaw.collision.CollisionBehaviour;
 
 public abstract class MoveableObject extends PaintableObject {
 
@@ -7,8 +9,8 @@ public abstract class MoveableObject extends PaintableObject {
     //Default start direction is Right
     private Direction currentDirection = Direction.RIGHT;
 
-    public MoveableObject(char symbol, MoveablePosition position) {
-        super(symbol, position);
+    public MoveableObject(CollisionBehaviour collisionBehaviour, char symbol, MoveablePosition position) {
+        super(collisionBehaviour, symbol, position);
         this.position = position;
     }
 
@@ -17,7 +19,7 @@ public abstract class MoveableObject extends PaintableObject {
         return position;
     }
 
-    private Position setAndGetNewPosition(MoveablePosition newPosition){
+    private Position setAndGetNewPosition(MoveablePosition newPosition) {
         this.position = newPosition;
         return position;
     }
@@ -35,7 +37,7 @@ public abstract class MoveableObject extends PaintableObject {
         }
     }
 
-    public Position move(){
+    public Position move() {
         switch (currentDirection) {
             case UP:
                 return moveUp();
@@ -51,19 +53,19 @@ public abstract class MoveableObject extends PaintableObject {
         }
     }
 
-    private Position moveLeft(){
+    private Position moveLeft() {
         return setAndGetNewPosition(position.moveLeft());
     }
 
-    private Position moveRight(){
+    private Position moveRight() {
         return setAndGetNewPosition(position.moveRight());
     }
 
-    private Position moveUp(){
+    private Position moveUp() {
         return setAndGetNewPosition(position.moveUp());
     }
 
-    private Position moveDown(){
+    private Position moveDown() {
         return setAndGetNewPosition(position.moveDown());
     }
 

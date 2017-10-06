@@ -1,6 +1,11 @@
 package ch.mgubler.zhaw.objects;
 
-public class Food extends PaintableObject{
+import ch.mgubler.zhaw.SnakeGame;
+import ch.mgubler.zhaw.collision.PointsAddCollision;
+import ch.mgubler.zhaw.move.PaintableObject;
+import ch.mgubler.zhaw.move.Position;
+
+public class Food extends PaintableObject {
 
     public static final char FOOD_SYMBOL = '*';
 
@@ -8,12 +13,12 @@ public class Food extends PaintableObject{
 
     private int foodPoints = FOOD_POINTS;
 
-    public Food() {
-        super(FOOD_SYMBOL);
+    public Food(SnakeGame snakeGame, Position position) {
+        this(snakeGame, FOOD_SYMBOL, position, FOOD_POINTS);
     }
 
-    protected Food(int foodPoints, char symbol){
-        super(symbol);
+    protected Food(SnakeGame snakeGame, char symbol, Position position, int foodPoints) {
+        super(new PointsAddCollision(snakeGame), symbol, position);
         this.foodPoints = foodPoints;
     }
 

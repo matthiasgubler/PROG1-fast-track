@@ -1,7 +1,8 @@
 package ch.mgubler.zhaw.textinput;
 
-import ch.mgubler.zhaw.objects.Direction;
-import ch.mgubler.zhaw.objects.MoveableObject;
+import ch.mgubler.zhaw.move.Direction;
+import ch.mgubler.zhaw.move.MoveableObject;
+import ch.mgubler.zhaw.move.ObjectMover;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.junit.Before;
@@ -15,31 +16,31 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ObjectMoverTest {
 
-    private ObjectMover objectMover;
+    private ObjectMover objectMoverTestee;
 
     @Mock
-    private MoveableObject moveableObject;
+    private MoveableObject moveableObjectMock;
 
     @Mock
-    private Terminal terminal;
+    private Terminal terminalMock;
 
     @Before
     public void setUp() {
-        objectMover = new ObjectMover(terminal, moveableObject);
+        objectMoverTestee = new ObjectMover(terminalMock, moveableObjectMock);
     }
 
     @Test
     public void pollDirectionChange() throws Exception {
-        when(terminal.pollInput()).thenReturn(new KeyStroke('a', false, false));
-        objectMover.pollDirectionChange();
-        verify(terminal, times(1)).pollInput();
-        verify(moveableObject, times(1)).setCurrentDirection(Direction.LEFT);
+        when(terminalMock.pollInput()).thenReturn(new KeyStroke('a', false, false));
+        objectMoverTestee.pollDirectionChange();
+        verify(terminalMock, times(1)).pollInput();
+        verify(moveableObjectMock, times(1)).setCurrentDirection(Direction.LEFT);
     }
 
     @Test
     public void moveObject() throws Exception {
-        objectMover.moveObject();
-        verify(moveableObject, times(1)).move();
+        objectMoverTestee.moveObject();
+        verify(moveableObjectMock, times(1)).move();
     }
 
 }

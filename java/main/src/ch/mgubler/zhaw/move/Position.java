@@ -1,4 +1,4 @@
-package ch.mgubler.zhaw.objects;
+package ch.mgubler.zhaw.move;
 
 public class Position {
 

@@ -1,7 +1,5 @@
-package ch.mgubler.zhaw.textinput;
+package ch.mgubler.zhaw.move;
 
-import ch.mgubler.zhaw.objects.Direction;
-import ch.mgubler.zhaw.objects.MoveableObject;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;

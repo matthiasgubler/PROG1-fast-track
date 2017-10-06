@@ -1,78 +1,90 @@
 package ch.mgubler.zhaw.objects;
 
+import ch.mgubler.zhaw.SnakeGame;
+import ch.mgubler.zhaw.move.Direction;
+import ch.mgubler.zhaw.move.MoveableObject;
+import ch.mgubler.zhaw.move.MoveablePosition;
+import ch.mgubler.zhaw.move.Position;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MoveableObjectTest {
 
     public static final int TEST_START_X = 5;
 
     public static final int TEST_START_Y = 7;
 
-    private MoveableObject moveableObject;
+    private MoveableObject moveableObjectTestee;
+
+    @Mock
+    private SnakeGame snakeGameMock;
 
     @Before
-    public void setUp(){
-        moveableObject = new Snake(new MoveablePosition(TEST_START_X, TEST_START_Y));
+    public void setUp() {
+        moveableObjectTestee = new Snake(snakeGameMock, new MoveablePosition(TEST_START_X, TEST_START_Y));
     }
 
     @Test
     public void getPosition() throws Exception {
-        Position position = moveableObject.getPosition();
+        Position position = moveableObjectTestee.getPosition();
         Assert.assertEquals(TEST_START_X, position.getX());
         Assert.assertEquals(TEST_START_Y, position.getY());
     }
 
     @Test
     public void move_default_test() throws Exception {
-        Assert.assertEquals(Direction.RIGHT, moveableObject.getCurrentDirection());
-        moveableObject.move();
-        Position position = moveableObject.getPosition();
-        Assert.assertEquals(TEST_START_X+1, position.getX());
+        Assert.assertEquals(Direction.RIGHT, moveableObjectTestee.getCurrentDirection());
+        moveableObjectTestee.move();
+        Position position = moveableObjectTestee.getPosition();
+        Assert.assertEquals(TEST_START_X + 1, position.getX());
         Assert.assertEquals(TEST_START_Y, position.getY());
     }
 
     @Test
     public void move_right_test() throws Exception {
-        moveableObject.setCurrentDirection(Direction.RIGHT);
-        moveableObject.move();
-        Position position = moveableObject.getPosition();
-        Assert.assertEquals(TEST_START_X+1, position.getX());
+        moveableObjectTestee.setCurrentDirection(Direction.RIGHT);
+        moveableObjectTestee.move();
+        Position position = moveableObjectTestee.getPosition();
+        Assert.assertEquals(TEST_START_X + 1, position.getX());
         Assert.assertEquals(TEST_START_Y, position.getY());
     }
 
     @Test
     public void move_left_test() throws Exception {
-        moveableObject.setCurrentDirection(Direction.LEFT);
-        moveableObject.move();
-        Position position = moveableObject.getPosition();
-        Assert.assertEquals(TEST_START_X-1, position.getX());
+        moveableObjectTestee.setCurrentDirection(Direction.LEFT);
+        moveableObjectTestee.move();
+        Position position = moveableObjectTestee.getPosition();
+        Assert.assertEquals(TEST_START_X - 1, position.getX());
         Assert.assertEquals(TEST_START_Y, position.getY());
     }
 
     @Test
     public void move_up_test() throws Exception {
-        moveableObject.setCurrentDirection(Direction.UP);
-        moveableObject.move();
-        Position position = moveableObject.getPosition();
+        moveableObjectTestee.setCurrentDirection(Direction.UP);
+        moveableObjectTestee.move();
+        Position position = moveableObjectTestee.getPosition();
         Assert.assertEquals(TEST_START_X, position.getX());
-        Assert.assertEquals(TEST_START_Y-1, position.getY());
+        Assert.assertEquals(TEST_START_Y - 1, position.getY());
     }
 
     @Test
     public void move_down_test() throws Exception {
-        moveableObject.setCurrentDirection(Direction.DOWN);
-        moveableObject.move();
-        Position position = moveableObject.getPosition();
+        moveableObjectTestee.setCurrentDirection(Direction.DOWN);
+        moveableObjectTestee.move();
+        Position position = moveableObjectTestee.getPosition();
         Assert.assertEquals(TEST_START_X, position.getX());
-        Assert.assertEquals(TEST_START_Y+1, position.getY());
+        Assert.assertEquals(TEST_START_Y + 1, position.getY());
     }
 
     @Test
     public void move_undef_test() throws Exception {
-        moveableObject.setCurrentDirection(Direction.UNDEF);
-        Assert.assertEquals(Direction.RIGHT, moveableObject.getCurrentDirection());
+        moveableObjectTestee.setCurrentDirection(Direction.UNDEF);
+        Assert.assertEquals(Direction.RIGHT, moveableObjectTestee.getCurrentDirection());
     }
 
 }
