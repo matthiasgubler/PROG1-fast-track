@@ -27,7 +27,11 @@ public enum Direction {
         return UNDEF;
     }
 
-    public static Direction getDirectionByKey(char directionKey) {
+    public static Direction getDirectionByKey(Character directionKey) {
+        if(directionKey == null){
+            return UNDEF;
+        }
+
         for (Direction direction : Direction.values()) {
             if (direction.getDirectionKey() == directionKey) {
                 return direction;

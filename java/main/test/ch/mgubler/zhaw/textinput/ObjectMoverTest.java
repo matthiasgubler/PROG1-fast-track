@@ -11,7 +11,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ObjectMoverTest {
@@ -33,14 +34,14 @@ public class ObjectMoverTest {
     public void pollDirectionChange() throws Exception {
         when(terminalMock.pollInput()).thenReturn(new KeyStroke('a', false, false));
         objectMoverTestee.pollDirectionChange();
-        verify(terminalMock, times(1)).pollInput();
-        verify(moveableObjectMock, times(1)).setCurrentDirection(Direction.LEFT);
+        verify(terminalMock).pollInput();
+        verify(moveableObjectMock).setCurrentDirection(Direction.LEFT);
     }
 
     @Test
     public void moveObject() throws Exception {
         objectMoverTestee.moveObject();
-        verify(moveableObjectMock, times(1)).move();
+        verify(moveableObjectMock).move();
     }
 
 }

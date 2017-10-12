@@ -34,6 +34,11 @@ public class DirectionTest {
     }
 
     @Test
+    public void getDirectionByKey_null_undef() throws Exception {
+        Assert.assertEquals(Direction.UNDEF, Direction.getDirectionByKey(null));
+    }
+
+    @Test
     public void getDirectionByKeyStroke_up() throws Exception {
         Assert.assertEquals(Direction.UP, Direction.getDirectionByKeyStroke(new KeyStroke('w', false, false)));
     }
@@ -56,6 +61,11 @@ public class DirectionTest {
     @Test
     public void getDirectionByKeyStroke_undef() throws Exception {
         Assert.assertEquals(Direction.UNDEF, Direction.getDirectionByKeyStroke(new KeyStroke(KeyType.Backspace)));
+    }
+
+    @Test
+    public void getDirectionByKeyStroke_null_undef() throws Exception {
+        Assert.assertEquals(Direction.UNDEF, Direction.getDirectionByKeyStroke(null));
     }
 
 }

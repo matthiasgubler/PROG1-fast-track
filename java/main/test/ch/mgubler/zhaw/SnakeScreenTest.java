@@ -18,8 +18,7 @@ import java.util.stream.IntStream;
 
 import static ch.mgubler.zhaw.SnakeGame.SCREEN_HEIGHT;
 import static ch.mgubler.zhaw.SnakeGame.SCREEN_WIDTH;
-import static ch.mgubler.zhaw.SnakeScreen.BLANK_FIELD;
-import static ch.mgubler.zhaw.SnakeScreen.WALL_CHAR;
+import static ch.mgubler.zhaw.SnakeScreen.*;
 import static ch.mgubler.zhaw.objects.MoveableObjectTest.TEST_START_X;
 import static ch.mgubler.zhaw.objects.MoveableObjectTest.TEST_START_Y;
 import static org.mockito.Matchers.any;
@@ -108,13 +107,15 @@ public class SnakeScreenTest {
     }
 
     @Test
-    public void writeOnScreen() throws Exception {
-        snakeScreenTestee.writeOnScreen("Hello");
-        verify(screenMock).setCharacter(eq(new TerminalPosition(1,1)), eq(new TextCharacter('H')));
-        verify(screenMock).setCharacter(eq(new TerminalPosition(2,1)), eq(new TextCharacter('e')));
-        verify(screenMock).setCharacter(eq(new TerminalPosition(3,1)), eq(new TextCharacter('l')));
-        verify(screenMock).setCharacter(eq(new TerminalPosition(4,1)), eq(new TextCharacter('l')));
-        verify(screenMock).setCharacter(eq(new TerminalPosition(5,1)), eq(new TextCharacter('o')));
+    public void setInfoTextOnScreen_paint() throws Exception {
+        snakeScreenTestee.setInfoTextOnScreen("Hello");
+        snakeScreenTestee.paintScreen();
+
+        verify(screenMock).setCharacter(eq(new TerminalPosition(INFO_TEXT_START_COLUMN, INFO_TEXT_ROW)), eq(new TextCharacter('H')));
+        verify(screenMock).setCharacter(eq(new TerminalPosition(INFO_TEXT_START_COLUMN + 1, INFO_TEXT_ROW)), eq(new TextCharacter('e')));
+        verify(screenMock).setCharacter(eq(new TerminalPosition(INFO_TEXT_START_COLUMN + 2, INFO_TEXT_ROW)), eq(new TextCharacter('l')));
+        verify(screenMock).setCharacter(eq(new TerminalPosition(INFO_TEXT_START_COLUMN + 3, INFO_TEXT_ROW)), eq(new TextCharacter('l')));
+        verify(screenMock).setCharacter(eq(new TerminalPosition(INFO_TEXT_START_COLUMN + 4, INFO_TEXT_ROW)), eq(new TextCharacter('o')));
         verify(screenMock).refresh();
     }
 

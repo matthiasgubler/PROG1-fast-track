@@ -12,6 +12,10 @@ import java.util.List;
 
 public class SnakeScreen {
 
+    public static final int INFO_TEXT_ROW = 2;
+
+    public static final int INFO_TEXT_START_COLUMN = 2;
+
     public static final int HEADER_GAP = 5;
 
     public static final char BLANK_FIELD = ' ';
@@ -29,6 +33,8 @@ public class SnakeScreen {
     private List<PaintableObject> gameElements = new ArrayList<>();
 
     private PaintableObject mainObject;
+
+    private char[] infoText = {};
 
     public SnakeScreen(int height, int width, Screen screen, PaintableObject mainObject) {
         this.height = height;
@@ -87,6 +93,7 @@ public class SnakeScreen {
                 screen.setCharacter(new TerminalPosition(columnIndex, rowIndex+HEADER_GAP), new TextCharacter(screenMatrix[rowIndex][columnIndex]));
             }
         }
+        displayText();
         try {
             screen.refresh();
         } catch (IOException e) {
@@ -119,8 +126,26 @@ public class SnakeScreen {
         this.screenMatrix[paintableObject.getPosition().getY()][paintableObject.getPosition().getX()] = paintableObject.getSymbol();
     }
 
-    public void writeOnScreen(String infoText){
-        writeText(1,1,infoText);
+    public void setInfoTextOnScreen(String infoTextString){
+        this.infoText = infoTextString.toCharArray();
+    }
+
+    public void writeTextOnScreen(){
+        displayText();
+        refreshScreen();
+    }
+
+
+    private void displayText(){
+        int x = INFO_TEXT_START_COLUMN;
+        for (char letter : infoText) {
+            TerminalPosition currentPosition = new TerminalPosition(x, INFO_TEXT_ROW);
+            screen.setCharacter(currentPosition, new TextCharacter(letter));
+            x++;
+        }
+    }
+
+    private void refreshScreen(){
         try {
             screen.refresh();
         } catch (IOException e) {
@@ -128,14 +153,7 @@ public class SnakeScreen {
         }
     }
 
-    private void writeText(int startX, int startY, String text){
-        int x = startX;
-        for (char letter : text.toCharArray()) {
-            TerminalPosition currentPosition = new TerminalPosition(x, startY);
-            screen.setCharacter(currentPosition, new TextCharacter(letter));
-            x++;
-        }
-    }
+
 
     public int getWidth() {
         return width;

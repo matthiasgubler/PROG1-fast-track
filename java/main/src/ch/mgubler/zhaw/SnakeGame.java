@@ -1,5 +1,6 @@
 package ch.mgubler.zhaw;
 
+import ch.mgubler.zhaw.collision.CollisionDetector;
 import ch.mgubler.zhaw.move.MoveablePosition;
 import ch.mgubler.zhaw.move.ObjectMover;
 import ch.mgubler.zhaw.objects.Snake;
@@ -35,6 +36,8 @@ public class SnakeGame {
 
     private ObjectMover mover;
 
+    private CollisionDetector collisionDetector;
+
     private Snake snake;
 
     private boolean running = true;
@@ -57,19 +60,22 @@ public class SnakeGame {
 
         snake = new Snake(this, new MoveablePosition(SNAKE_START_X, SNAKE_START_Y));
         mover = new ObjectMover(terminal, snake);
+
+        gameSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen, snake);
         gameScore = new GameScore();
+        collisionDetector = new CollisionDetector(gameSnakeScreen, snake);
     }
 
     public void startGame() {
-        gameSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen, snake);
         gameSnakeScreen.init();
+        gameSnakeScreen.setInfoTextOnScreen("Hello SnakeGame!");
 
         while (running) {
             try {
                 gameSnakeScreen.paintScreen();
                 mover.pollDirectionChange();
                 mover.moveObject();
-                gameSnakeScreen.writeOnScreen("Hello World");
+                collisionDetector.detectCollision();
                 Thread.sleep(GAME_SPEED);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -77,11 +83,17 @@ public class SnakeGame {
             }
         }
 
+        try {
+            terminal.readInput();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         gameSnakeScreen.stopScreen();
     }
 
     public void gameOver() {
-        //TODO gameSnakeScreen.writeText...
+        gameSnakeScreen.setInfoTextOnScreen("XXXXXXXXXXXX______Game Over!______XXXXXXXXXXXX");
+        gameSnakeScreen.writeTextOnScreen();
         running = false;
     }
 
