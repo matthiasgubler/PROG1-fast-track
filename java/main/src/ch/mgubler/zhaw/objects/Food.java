@@ -18,7 +18,8 @@ public class Food extends PaintableObject {
     }
 
     protected Food(SnakeGame snakeGame, char symbol, Position position, int foodPoints) {
-        super(new PointsAddCollision(snakeGame), symbol, position);
+        super(symbol, position);
+        setCollisionBehaviour(new PointsAddCollision(snakeGame, this));
         this.foodPoints = foodPoints;
     }
 

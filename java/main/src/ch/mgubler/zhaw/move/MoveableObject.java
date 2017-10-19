@@ -14,6 +14,11 @@ public abstract class MoveableObject extends PaintableObject {
         this.position = position;
     }
 
+    public MoveableObject(char symbol, MoveablePosition position) {
+        super(symbol, position);
+        this.position = position;
+    }
+
     @Override
     public MoveablePosition getPosition() {
         return position;

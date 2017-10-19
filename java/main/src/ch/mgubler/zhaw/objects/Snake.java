@@ -15,7 +15,8 @@ public class Snake extends MoveableObject {
     private List<SnakeElement> snakeElements = new ArrayList<>();
 
     public Snake(SnakeGame snakeGame, MoveablePosition position) {
-        super(new GameOverCollision(snakeGame), SNAKE_SYMBOL, position);
+        super(SNAKE_SYMBOL, position);
+        setCollisionBehaviour(new GameOverCollision(snakeGame, this));
     }
 
     public void addElement(SnakeElement snakeElement) {

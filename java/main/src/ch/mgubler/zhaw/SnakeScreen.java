@@ -194,4 +194,8 @@ public class SnakeScreen {
     public void addGameElement(PaintableObject gameElement) {
         this.gameElements.add(gameElement);
     }
+
+    public void removeGameElement(PaintableObject gameElement) {
+        this.gameElements.remove(gameElement);
+    }
 }

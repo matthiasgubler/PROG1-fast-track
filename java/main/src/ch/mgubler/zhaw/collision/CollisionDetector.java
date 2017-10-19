@@ -5,6 +5,7 @@ import ch.mgubler.zhaw.SnakeScreen;
 import ch.mgubler.zhaw.move.PaintableObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CollisionDetector {
@@ -24,13 +25,25 @@ public class CollisionDetector {
         this.elementsOnScreen.add(paintableObject);
     }
 
-    public void removeElementOnScreen(PaintableObject paintableObject) {
-        this.elementsOnScreen.add(paintableObject);
-    }
-
     public void detectCollision() {
         detectWallCollision();
+        //TODO Detect Snake "self" collision
         //TODO Detect Object collision
+        detectObjectCollision();
+    }
+
+    private void detectObjectCollision() {
+        Iterator<PaintableObject> paintableObjectIterator = elementsOnScreen.iterator();
+
+        while (paintableObjectIterator.hasNext()){
+            PaintableObject currentPaintableObject = paintableObjectIterator.next();
+
+            if(paintableObjectSnake.getPosition().equals(currentPaintableObject.getPosition()))
+            {
+                currentPaintableObject.getCollisionBehaviour().collide();
+                paintableObjectIterator.remove();
+            }
+        }
     }
 
     private void detectWallCollision() {
