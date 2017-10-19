@@ -28,7 +28,6 @@ public class CollisionDetector {
     public void detectCollision() {
         detectWallCollision();
         //TODO Detect Snake "self" collision
-        //TODO Detect Object collision
         detectObjectCollision();
     }
 

@@ -1,13 +1,11 @@
-package ch.mgubler.zhaw.objects;
+package ch.mgubler.zhaw.move;
 
-import ch.mgubler.zhaw.move.MoveablePosition;
-import ch.mgubler.zhaw.move.Position;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static ch.mgubler.zhaw.objects.MoveableObjectTest.TEST_START_X;
-import static ch.mgubler.zhaw.objects.MoveableObjectTest.TEST_START_Y;
+import static ch.mgubler.zhaw.move.MoveableObjectTest.TEST_START_X;
+import static ch.mgubler.zhaw.move.MoveableObjectTest.TEST_START_Y;
 
 public class MoveablePositionTest {
 

@@ -3,8 +3,8 @@ package ch.mgubler.zhaw;
 import ch.mgubler.zhaw.collision.CollisionDetector;
 import ch.mgubler.zhaw.move.MoveablePosition;
 import ch.mgubler.zhaw.move.ObjectMover;
-import ch.mgubler.zhaw.move.Position;
 import ch.mgubler.zhaw.objects.Food;
+import ch.mgubler.zhaw.objects.FoodGenerator;
 import ch.mgubler.zhaw.objects.Snake;
 import ch.mgubler.zhaw.score.GameScore;
 import com.googlecode.lanterna.TerminalSize;
@@ -44,6 +44,8 @@ public class SnakeGame {
 
     private Food testFood;
 
+    private FoodGenerator foodGenerator;
+
     private boolean running = true;
 
     public static void main(String[] args) {
@@ -66,18 +68,28 @@ public class SnakeGame {
 
         mover = new ObjectMover(terminal, snake);
 
-        gameSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen, snake);
         gameScore = new GameScore();
+        gameSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen, snake, gameScore);
         collisionDetector = new CollisionDetector(gameSnakeScreen, snake);
 
-        testFood = new Food(this, new Position(10, 10));
-        collisionDetector.addElementOnScreen(testFood);
-        gameSnakeScreen.addGameElement(testFood);
+        foodGenerator = new FoodGenerator(this, gameSnakeScreen, gameScore, collisionDetector);
+    }
+
+    public SnakeGame(Terminal terminal, Snake snake,
+                     ObjectMover mover, SnakeScreen snakeScreen,
+                     GameScore gameScore, CollisionDetector collisionDetector) {
+        this.terminal = terminal;
+        this.snake = snake;
+        this.mover = mover;
+        this.gameSnakeScreen = snakeScreen;
+        this.gameScore = gameScore;
+        this.collisionDetector = collisionDetector;
     }
 
     public void startGame() {
         gameSnakeScreen.init();
         gameSnakeScreen.setInfoTextOnScreen("Hello SnakeGame!");
+        foodGenerator.generateFood();
 
         while (running) {
             try {
@@ -93,6 +105,7 @@ public class SnakeGame {
         }
 
         try {
+            //Bild "freezen", sodass es nach einem GameOver nicht plötzlich verschwindet
             terminal.readInput();
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,7 +115,7 @@ public class SnakeGame {
 
     public void gameOver() {
         gameSnakeScreen.setInfoTextOnScreen("XXXXXXXXXXXX______Game Over!______XXXXXXXXXXXX");
-        gameSnakeScreen.writeTextOnScreen();
+        gameSnakeScreen.writeInfoTextOnScreen();
         running = false;
     }
 
@@ -112,5 +125,9 @@ public class SnakeGame {
 
     public SnakeScreen getGameSnakeScreen() {
         return gameSnakeScreen;
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 }

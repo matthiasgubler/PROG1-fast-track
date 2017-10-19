@@ -1,10 +1,7 @@
-package ch.mgubler.zhaw.objects;
+package ch.mgubler.zhaw.move;
 
 import ch.mgubler.zhaw.SnakeGame;
-import ch.mgubler.zhaw.move.Direction;
-import ch.mgubler.zhaw.move.MoveableObject;
-import ch.mgubler.zhaw.move.MoveablePosition;
-import ch.mgubler.zhaw.move.Position;
+import ch.mgubler.zhaw.objects.Snake;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

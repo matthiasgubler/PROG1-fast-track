@@ -1,6 +1,7 @@
 package ch.mgubler.zhaw;
 
 import ch.mgubler.zhaw.move.PaintableObject;
+import ch.mgubler.zhaw.score.GameScore;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.screen.Screen;
@@ -16,11 +17,17 @@ public class SnakeScreen {
 
     public static final int INFO_TEXT_START_COLUMN = 2;
 
+    public static final int SCORE_TEXT_ROW = 3;
+
+    public static final int SCORE_TEXT_START_COLUMN = 2;
+
     public static final int HEADER_GAP = 5;
 
     public static final char BLANK_FIELD = ' ';
 
     public static final char WALL_CHAR = 'X';
+
+    public static final String SCORE_TITLE = "Score: ";
 
     private int width;
 
@@ -34,14 +41,17 @@ public class SnakeScreen {
 
     private PaintableObject mainObject;
 
+    private GameScore gameScore;
+
     private char[] infoText = {};
 
-    public SnakeScreen(int height, int width, Screen screen, PaintableObject mainObject) {
+    public SnakeScreen(int height, int width, Screen screen, PaintableObject mainObject, GameScore gameScore) {
         this.height = height;
         this.width = width;
         screenMatrix = new Character[height][width];
         this.screen = screen;
         this.mainObject = mainObject;
+        this.gameScore = gameScore;
     }
 
     public void init() {
@@ -93,7 +103,7 @@ public class SnakeScreen {
                 screen.setCharacter(new TerminalPosition(columnIndex, rowIndex+HEADER_GAP), new TextCharacter(screenMatrix[rowIndex][columnIndex]));
             }
         }
-        displayText();
+        displayTextes();
         try {
             screen.refresh();
         } catch (IOException e) {
@@ -130,19 +140,35 @@ public class SnakeScreen {
         this.infoText = infoTextString.toCharArray();
     }
 
-    public void writeTextOnScreen(){
-        displayText();
+    public void writeInfoTextOnScreen(){
+        displayTextes();
         refreshScreen();
     }
 
+    public void displayTextes(){
+        displayInfoText();
+        displayScore();
+    }
 
-    private void displayText(){
-        int x = INFO_TEXT_START_COLUMN;
-        for (char letter : infoText) {
-            TerminalPosition currentPosition = new TerminalPosition(x, INFO_TEXT_ROW);
+    private void displayInfoText() {
+        displayText(infoText, INFO_TEXT_START_COLUMN, INFO_TEXT_ROW);
+    }
+
+    private void displayScore() {
+        displayText(SCORE_TITLE +gameScore.getGameScore(), SCORE_TEXT_START_COLUMN, SCORE_TEXT_ROW);
+    }
+
+    private void displayText(char[] text, int startPositionX, int row){
+        int x = startPositionX;
+        for (char letter : text) {
+            TerminalPosition currentPosition = new TerminalPosition(x, row);
             screen.setCharacter(currentPosition, new TextCharacter(letter));
             x++;
         }
+    }
+
+    private void displayText(String text, int startPositionX, int row){
+        this.displayText(text.toCharArray(), startPositionX, row);
     }
 
     private void refreshScreen(){

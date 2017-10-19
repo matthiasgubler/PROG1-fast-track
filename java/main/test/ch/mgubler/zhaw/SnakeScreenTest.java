@@ -3,6 +3,7 @@ package ch.mgubler.zhaw;
 import ch.mgubler.zhaw.move.Direction;
 import ch.mgubler.zhaw.move.MoveablePosition;
 import ch.mgubler.zhaw.objects.Snake;
+import ch.mgubler.zhaw.score.GameScore;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.screen.Screen;
@@ -19,8 +20,8 @@ import java.util.stream.IntStream;
 import static ch.mgubler.zhaw.SnakeGame.SCREEN_HEIGHT;
 import static ch.mgubler.zhaw.SnakeGame.SCREEN_WIDTH;
 import static ch.mgubler.zhaw.SnakeScreen.*;
-import static ch.mgubler.zhaw.objects.MoveableObjectTest.TEST_START_X;
-import static ch.mgubler.zhaw.objects.MoveableObjectTest.TEST_START_Y;
+import static ch.mgubler.zhaw.move.MoveableObjectTest.TEST_START_X;
+import static ch.mgubler.zhaw.move.MoveableObjectTest.TEST_START_Y;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
@@ -66,12 +67,15 @@ public class SnakeScreenTest {
     @Mock
     private SnakeGame snakeGameMock;
 
+    @Mock
+    private GameScore gameScoreMock;
+
     private Snake snake;
 
     @Before
     public void setUp() {
         snake = new Snake(snakeGameMock, new MoveablePosition(TEST_START_X, TEST_START_Y));
-        snakeScreenTestee = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screenMock, snake);
+        snakeScreenTestee = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screenMock, snake, gameScoreMock);
         snakeScreenTestee.init();
     }
 

@@ -1,6 +1,5 @@
-package ch.mgubler.zhaw.objects;
+package ch.mgubler.zhaw.move;
 
-import ch.mgubler.zhaw.move.Direction;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import org.junit.Assert;
