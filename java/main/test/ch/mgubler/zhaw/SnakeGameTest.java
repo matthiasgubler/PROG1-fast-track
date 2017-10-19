@@ -2,6 +2,7 @@ package ch.mgubler.zhaw;
 
 import ch.mgubler.zhaw.collision.CollisionDetector;
 import ch.mgubler.zhaw.move.ObjectMover;
+import ch.mgubler.zhaw.objects.FoodGenerator;
 import ch.mgubler.zhaw.objects.Snake;
 import ch.mgubler.zhaw.score.GameScore;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -22,42 +23,46 @@ public class SnakeGameTest {
     private SnakeGame snakeGameTestee;
 
     @Mock
-    private SnakeScreen gameSnakeScreen;
+    private SnakeScreen gameSnakeScreenMock;
 
     @Mock
-    private GameScore gameScore;
+    private GameScore gameScoreMock;
 
     @Mock
-    private Terminal terminal;
+    private Terminal terminalMock;
 
     @Mock
-    private Snake snake;
+    private Snake snakeMock;
 
     @Mock
-    private ObjectMover mover;
+    private ObjectMover moverMock;
 
     @Mock
-    private CollisionDetector collisionDetector;
+    private CollisionDetector collisionDetectorMock;
+
+    @Mock
+    private FoodGenerator foodGeneratorMock;
 
     @Before
     public void setUp() throws Exception {
-        snakeGameTestee = new SnakeGame(terminal, snake, mover, gameSnakeScreen, gameScore, collisionDetector);
+        snakeGameTestee = new SnakeGame(terminalMock, snakeMock, moverMock, gameSnakeScreenMock, gameScoreMock, collisionDetectorMock, foodGeneratorMock);
     }
 
     @Test
     public void startGame() throws Exception {
         //To ensure, that main loop will only called once
-        doThrow(new RuntimeException()).when(collisionDetector).detectCollision();
+        doThrow(new RuntimeException()).when(collisionDetectorMock).detectCollision();
 
         assertTrue(snakeGameTestee.isRunning());
 
         snakeGameTestee.startGame();
 
-        verify(gameSnakeScreen).init();
-        verify(mover).pollDirectionChange();
-        verify(mover).moveObject();
-        verify(collisionDetector).detectCollision();
-        verify(gameSnakeScreen).stopScreen();
+        verify(gameSnakeScreenMock).init();
+        verify(foodGeneratorMock).generateFood();
+        verify(moverMock).pollDirectionChange();
+        verify(moverMock).moveObject();
+        verify(collisionDetectorMock).detectCollision();
+        verify(gameSnakeScreenMock).stopScreen();
 
         assertFalse(snakeGameTestee.isRunning());
     }

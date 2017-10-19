@@ -77,13 +77,15 @@ public class SnakeGame {
 
     public SnakeGame(Terminal terminal, Snake snake,
                      ObjectMover mover, SnakeScreen snakeScreen,
-                     GameScore gameScore, CollisionDetector collisionDetector) {
+                     GameScore gameScore, CollisionDetector collisionDetector,
+                     FoodGenerator foodGenerator) {
         this.terminal = terminal;
         this.snake = snake;
         this.mover = mover;
         this.gameSnakeScreen = snakeScreen;
         this.gameScore = gameScore;
         this.collisionDetector = collisionDetector;
+        this.foodGenerator = foodGenerator;
     }
 
     public void startGame() {

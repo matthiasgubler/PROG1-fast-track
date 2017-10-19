@@ -8,7 +8,7 @@ import ch.mgubler.zhaw.score.ScoreObserver;
 
 public class FoodGenerator {
 
-    int foodCounter = 1;
+    private int foodCounter = 1;
 
     private SnakeGame snakeGame;
 
@@ -33,4 +33,7 @@ public class FoodGenerator {
         foodCounter++;
     }
 
+    public int getFoodCounter() {
+        return foodCounter;
+    }
 }

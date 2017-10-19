@@ -50,6 +50,8 @@ public class SnakeScreenTest {
 
     private static final char[][] INIT_SCREEN_EXPECTED = new char[SCREEN_HEIGHT][SnakeGame.SCREEN_WIDTH];
 
+    private static final int OTHER_CHARACTERS_ON_SCREEN = 8;
+
     {
         //Init Expected Game Matrix with Walls on Top/Bottom and the regular Fieldcontent
         INIT_SCREEN_EXPECTED[0] = WALL_TOP_BOTTOM_CHAR_ARRAY;
@@ -89,7 +91,7 @@ public class SnakeScreenTest {
         snakeScreenTestee.paintScreen();
         verify(screenMock, times(1)).clear();
         verify(screenMock, times(1)).refresh();
-        verify(screenMock, times(SCREEN_HEIGHT * SCREEN_WIDTH)).setCharacter(any(TerminalPosition.class), any(TextCharacter.class));
+        verify(screenMock, times((SCREEN_HEIGHT * SCREEN_WIDTH) + OTHER_CHARACTERS_ON_SCREEN)).setCharacter(any(TerminalPosition.class), any(TextCharacter.class));
         Assert.assertEquals(new Character(snake.getSymbol()), snakeScreenTestee.getScreenMatrix()[TEST_START_Y][TEST_START_X]);
     }
 

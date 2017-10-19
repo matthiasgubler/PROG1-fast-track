@@ -3,6 +3,7 @@ package ch.mgubler.zhaw.collision;
 import ch.mgubler.zhaw.SnakeGame;
 import ch.mgubler.zhaw.SnakeScreen;
 import ch.mgubler.zhaw.objects.Food;
+import ch.mgubler.zhaw.score.FoodPointsObservable;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,8 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PointsAddCollisionTest {
 
+    private static final int TEST_FOODPOINTS = 22;
+
     private PointsAddCollision pointsAddCollisionTestee;
 
     @Mock
@@ -26,6 +29,10 @@ public class PointsAddCollisionTest {
     @Mock
     private SnakeScreen snakeScreenMock;
 
+    @Mock
+    private FoodPointsObservable foodPointsObservableMock;
+
+
     @Before
     public void setUp(){
         pointsAddCollisionTestee = new PointsAddCollision(snakeGameMock, collidingObjectMock);
@@ -34,9 +41,11 @@ public class PointsAddCollisionTest {
     @Test
     public void collide() throws Exception {
         when(snakeGameMock.getGameSnakeScreen()).thenReturn(snakeScreenMock);
+        when(collidingObjectMock.getFoodPointsObservable()).thenReturn(foodPointsObservableMock);
+        when(collidingObjectMock.getFoodPoints()).thenReturn(TEST_FOODPOINTS);
         pointsAddCollisionTestee.collide();
         verify(snakeScreenMock).removeGameElement(collidingObjectMock);
-
+        verify(foodPointsObservableMock).notifyObserversScoreChange(TEST_FOODPOINTS);
     }
 
 }
