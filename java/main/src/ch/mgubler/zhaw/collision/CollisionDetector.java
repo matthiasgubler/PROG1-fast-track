@@ -1,8 +1,9 @@
 package ch.mgubler.zhaw.collision;
 
 import ch.mgubler.zhaw.SnakeGame;
-import ch.mgubler.zhaw.SnakeScreen;
 import ch.mgubler.zhaw.move.PaintableObject;
+import ch.mgubler.zhaw.objects.Snake;
+import ch.mgubler.zhaw.objects.SnakeElement;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,14 +11,11 @@ import java.util.List;
 
 public class CollisionDetector {
 
-    private final SnakeScreen snakeScreen;
-
-    private final PaintableObject paintableObjectSnake;
+    private final Snake paintableObjectSnake;
 
     public List<PaintableObject> elementsOnScreen = new ArrayList<>();
 
-    public CollisionDetector(SnakeScreen snakeScreen, PaintableObject paintableObjectSnake) {
-        this.snakeScreen = snakeScreen;
+    public CollisionDetector(Snake paintableObjectSnake) {
         this.paintableObjectSnake = paintableObjectSnake;
     }
 
@@ -27,20 +25,28 @@ public class CollisionDetector {
 
     public void detectCollision() {
         detectWallCollision();
-        //TODO Detect Snake "self" collision
+        detectSelfCollision();
         detectObjectCollision();
+    }
+
+    private void detectSelfCollision() {
+        List<SnakeElement> snakeElementList = paintableObjectSnake.getSnakeElements();
+        for (SnakeElement snakeElement : snakeElementList) {
+            if(paintableObjectSnake.getPosition().equals(snakeElement.getPosition())){
+                snakeElement.getCollisionBehaviour().collide(paintableObjectSnake);
+            }
+        }
     }
 
     private void detectObjectCollision() {
         Iterator<PaintableObject> paintableObjectIterator = elementsOnScreen.iterator();
 
-        while (paintableObjectIterator.hasNext()){
+        while (paintableObjectIterator.hasNext()) {
             PaintableObject currentPaintableObject = paintableObjectIterator.next();
 
-            if(paintableObjectSnake.getPosition().equals(currentPaintableObject.getPosition()))
-            {
-                currentPaintableObject.getCollisionBehaviour().collide();
+            if (paintableObjectSnake.getPosition().equals(currentPaintableObject.getPosition())) {
                 paintableObjectIterator.remove();
+                currentPaintableObject.getCollisionBehaviour().collide(paintableObjectSnake);
             }
         }
     }
@@ -52,7 +58,7 @@ public class CollisionDetector {
         boolean collidedBottom = isCollidedBottomWall();
 
         if (collidedRight || collidedLeft || collidedTop || collidedBottom) {
-            paintableObjectSnake.getCollisionBehaviour().collide();
+            paintableObjectSnake.getCollisionBehaviour().collide(paintableObjectSnake);
         }
     }
 

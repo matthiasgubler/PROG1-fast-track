@@ -1,9 +1,10 @@
 package ch.mgubler.zhaw.collision;
 
 import ch.mgubler.zhaw.SnakeGame;
-import ch.mgubler.zhaw.SnakeScreen;
+import ch.mgubler.zhaw.move.MoveablePosition;
 import ch.mgubler.zhaw.move.PaintableObject;
 import ch.mgubler.zhaw.move.Position;
+import ch.mgubler.zhaw.objects.Snake;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,10 +20,7 @@ public class CollisionDetectorTest {
     private CollisionDetector collisionDetectorTestee;
 
     @Mock
-    private SnakeScreen snakeScreenMock;
-
-    @Mock
-    private PaintableObject snakeObjectMock;
+    private Snake snakeObjectMock;
 
     @Mock
     private CollisionBehaviour collisionBehaviourMock;
@@ -32,7 +30,7 @@ public class CollisionDetectorTest {
 
     @Before
     public void setUp(){
-        collisionDetectorTestee = new CollisionDetector(snakeScreenMock, snakeObjectMock);
+        collisionDetectorTestee = new CollisionDetector(snakeObjectMock);
     }
 
     @Test
@@ -83,11 +81,11 @@ public class CollisionDetectorTest {
     private void verifyCollision(int x, int y, VerificationMode verificationMode) {
         prepareSnakePosition(x, y);
         collisionDetectorTestee.detectCollision();
-        verify(collisionBehaviourMock, verificationMode).collide();
+        verify(collisionBehaviourMock, verificationMode).collide(any(Snake.class));
     }
 
     private void prepareSnakePosition(int x, int y) {
-        when(snakeObjectMock.getPosition()).thenReturn(new Position(x, y));
+        when(snakeObjectMock.getPosition()).thenReturn(new MoveablePosition(x, y));
         when(snakeObjectMock.getCollisionBehaviour()).thenReturn(collisionBehaviourMock);
     }
 

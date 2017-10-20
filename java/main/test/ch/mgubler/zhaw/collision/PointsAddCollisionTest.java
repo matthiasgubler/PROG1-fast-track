@@ -3,6 +3,7 @@ package ch.mgubler.zhaw.collision;
 import ch.mgubler.zhaw.SnakeGame;
 import ch.mgubler.zhaw.SnakeScreen;
 import ch.mgubler.zhaw.objects.Food;
+import ch.mgubler.zhaw.objects.Snake;
 import ch.mgubler.zhaw.score.FoodPointsObservable;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,8 @@ public class PointsAddCollisionTest {
     @Mock
     private FoodPointsObservable foodPointsObservableMock;
 
+    @Mock
+    private Snake collidingSnake;
 
     @Before
     public void setUp(){
@@ -43,9 +46,11 @@ public class PointsAddCollisionTest {
         when(snakeGameMock.getGameSnakeScreen()).thenReturn(snakeScreenMock);
         when(collidingObjectMock.getFoodPointsObservable()).thenReturn(foodPointsObservableMock);
         when(collidingObjectMock.getFoodPoints()).thenReturn(TEST_FOODPOINTS);
-        pointsAddCollisionTestee.collide();
+        pointsAddCollisionTestee.collide(collidingSnake);
         verify(snakeScreenMock).removeGameElement(collidingObjectMock);
         verify(foodPointsObservableMock).notifyObserversScoreChange(TEST_FOODPOINTS);
+        verify(snakeGameMock).generateFood();
+        verify(collidingSnake).grow();
     }
 
 }

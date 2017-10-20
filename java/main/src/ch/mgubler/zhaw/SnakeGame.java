@@ -3,7 +3,6 @@ package ch.mgubler.zhaw;
 import ch.mgubler.zhaw.collision.CollisionDetector;
 import ch.mgubler.zhaw.move.MoveablePosition;
 import ch.mgubler.zhaw.move.ObjectMover;
-import ch.mgubler.zhaw.objects.Food;
 import ch.mgubler.zhaw.objects.FoodGenerator;
 import ch.mgubler.zhaw.objects.Snake;
 import ch.mgubler.zhaw.score.GameScore;
@@ -27,6 +26,7 @@ public class SnakeGame {
     public static final int SNAKE_START_X = 5;
     public static final int TERMINAL_SIZE_ADD = 10;
     public static final String FONT_NAME = "Courier New";
+    public static final int INITIAL_SNAKE_SIZE = 3;
 
     private SnakeScreen gameSnakeScreen;
 
@@ -42,11 +42,11 @@ public class SnakeGame {
 
     private Snake snake;
 
-    private Food testFood;
-
     private FoodGenerator foodGenerator;
 
     private boolean running = true;
+
+    private boolean shouldGenerateFood = false;
 
     public static void main(String[] args) {
         SnakeGame snakeGame = new SnakeGame();
@@ -65,12 +65,13 @@ public class SnakeGame {
         }
 
         snake = new Snake(this, new MoveablePosition(SNAKE_START_X, SNAKE_START_Y));
+        //Start with one Head and 3 Body Elements
+        snake.grow(INITIAL_SNAKE_SIZE);
 
         mover = new ObjectMover(terminal, snake);
-
         gameScore = new GameScore();
         gameSnakeScreen = new SnakeScreen(SCREEN_HEIGHT, SCREEN_WIDTH, screen, snake, gameScore);
-        collisionDetector = new CollisionDetector(gameSnakeScreen, snake);
+        collisionDetector = new CollisionDetector(snake);
 
         foodGenerator = new FoodGenerator(this, gameSnakeScreen, gameScore, collisionDetector);
     }
@@ -99,6 +100,7 @@ public class SnakeGame {
                 mover.pollDirectionChange();
                 mover.moveObject();
                 collisionDetector.detectCollision();
+                checkGenerateFood();
                 Thread.sleep(GAME_SPEED);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -115,6 +117,13 @@ public class SnakeGame {
         gameSnakeScreen.stopScreen();
     }
 
+    private void checkGenerateFood() {
+        if(shouldGenerateFood){
+            foodGenerator.generateFood();
+            shouldGenerateFood = false;
+        }
+    }
+
     public void gameOver() {
         gameSnakeScreen.setInfoTextOnScreen("XXXXXXXXXXXX______Game Over!______XXXXXXXXXXXX");
         gameSnakeScreen.writeInfoTextOnScreen();
@@ -127,6 +136,11 @@ public class SnakeGame {
 
     public SnakeScreen getGameSnakeScreen() {
         return gameSnakeScreen;
+    }
+
+    public void generateFood(){
+        //food can only be generated at the end of the game-loop, else we have inconsistency
+        shouldGenerateFood = true;
     }
 
     public boolean isRunning() {

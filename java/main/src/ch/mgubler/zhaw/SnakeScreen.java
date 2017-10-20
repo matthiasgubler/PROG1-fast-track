@@ -1,6 +1,9 @@
 package ch.mgubler.zhaw;
 
 import ch.mgubler.zhaw.move.PaintableObject;
+import ch.mgubler.zhaw.move.Position;
+import ch.mgubler.zhaw.objects.Snake;
+import ch.mgubler.zhaw.objects.SnakeElement;
 import ch.mgubler.zhaw.score.GameScore;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextCharacter;
@@ -39,13 +42,13 @@ public class SnakeScreen {
 
     private List<PaintableObject> gameElements = new ArrayList<>();
 
-    private PaintableObject mainObject;
+    private Snake mainObject;
 
     private GameScore gameScore;
 
     private char[] infoText = {};
 
-    public SnakeScreen(int height, int width, Screen screen, PaintableObject mainObject, GameScore gameScore) {
+    public SnakeScreen(int height, int width, Screen screen, Snake mainObject, GameScore gameScore) {
         this.height = height;
         this.width = width;
         screenMatrix = new Character[height][width];
@@ -100,7 +103,7 @@ public class SnakeScreen {
         screen.clear();
         for (int rowIndex = 0; rowIndex < height; rowIndex++) {
             for (int columnIndex = 0; columnIndex < width; columnIndex++) {
-                screen.setCharacter(new TerminalPosition(columnIndex, rowIndex+HEADER_GAP), new TextCharacter(screenMatrix[rowIndex][columnIndex]));
+                screen.setCharacter(new TerminalPosition(columnIndex, rowIndex + HEADER_GAP), new TextCharacter(screenMatrix[rowIndex][columnIndex]));
             }
         }
         displayTextes();
@@ -113,13 +116,20 @@ public class SnakeScreen {
 
     private void setElementsOnScreen() {
         //Paint Snake
-        setElementOnScreen(mainObject);
+        setSnakeOnScreen();
 
         //Set Elements on Screen
         for (PaintableObject gameElement : gameElements) {
             setElementOnScreen(gameElement);
         }
 
+    }
+
+    private void setSnakeOnScreen() {
+        setElementOnScreen(mainObject);
+        for (SnakeElement snakeElement : mainObject.getSnakeElements()) {
+            setElementOnScreen(snakeElement);
+        }
     }
 
 
@@ -136,16 +146,16 @@ public class SnakeScreen {
         this.screenMatrix[paintableObject.getPosition().getY()][paintableObject.getPosition().getX()] = paintableObject.getSymbol();
     }
 
-    public void setInfoTextOnScreen(String infoTextString){
+    public void setInfoTextOnScreen(String infoTextString) {
         this.infoText = infoTextString.toCharArray();
     }
 
-    public void writeInfoTextOnScreen(){
+    public void writeInfoTextOnScreen() {
         displayTextes();
         refreshScreen();
     }
 
-    public void displayTextes(){
+    public void displayTextes() {
         displayInfoText();
         displayScore();
     }
@@ -155,10 +165,10 @@ public class SnakeScreen {
     }
 
     private void displayScore() {
-        displayText(SCORE_TITLE +gameScore.getGameScore(), SCORE_TEXT_START_COLUMN, SCORE_TEXT_ROW);
+        displayText(SCORE_TITLE + gameScore.getGameScore(), SCORE_TEXT_START_COLUMN, SCORE_TEXT_ROW);
     }
 
-    private void displayText(char[] text, int startPositionX, int row){
+    private void displayText(char[] text, int startPositionX, int row) {
         int x = startPositionX;
         for (char letter : text) {
             TerminalPosition currentPosition = new TerminalPosition(x, row);
@@ -167,18 +177,17 @@ public class SnakeScreen {
         }
     }
 
-    private void displayText(String text, int startPositionX, int row){
+    private void displayText(String text, int startPositionX, int row) {
         this.displayText(text.toCharArray(), startPositionX, row);
     }
 
-    private void refreshScreen(){
+    private void refreshScreen() {
         try {
             screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 
     public int getWidth() {
@@ -209,11 +218,11 @@ public class SnakeScreen {
         this.screen = screen;
     }
 
-    public PaintableObject getMainObject() {
+    public Snake getMainObject() {
         return mainObject;
     }
 
-    public void setMainObject(PaintableObject mainObject) {
+    public void setMainObject(Snake mainObject) {
         this.mainObject = mainObject;
     }
 
@@ -223,5 +232,17 @@ public class SnakeScreen {
 
     public void removeGameElement(PaintableObject gameElement) {
         this.gameElements.remove(gameElement);
+    }
+
+    public List<Position> getOccupiedPositions(){
+        List<Position> occupiedPositions = new ArrayList<>();
+        for (int rowIndex = 0; rowIndex < screenMatrix.length; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < screenMatrix[rowIndex].length; columnIndex++) {
+                if(!Character.isWhitespace(screenMatrix[rowIndex][columnIndex])){
+                    occupiedPositions.add(new Position(columnIndex, rowIndex));
+                }
+            }
+        }
+        return occupiedPositions;
     }
 }

@@ -4,6 +4,7 @@ import ch.mgubler.zhaw.SnakeGame;
 import ch.mgubler.zhaw.SnakeScreen;
 import ch.mgubler.zhaw.collision.CollisionDetector;
 import ch.mgubler.zhaw.move.Position;
+import ch.mgubler.zhaw.move.PositionHelper;
 import ch.mgubler.zhaw.score.ScoreObserver;
 
 public class FoodGenerator {
@@ -18,6 +19,8 @@ public class FoodGenerator {
 
     private CollisionDetector collisionDetector;
 
+    private PositionHelper positionHelper = new PositionHelper();
+
     public FoodGenerator(SnakeGame snakeGame, SnakeScreen snakeScreen, ScoreObserver scoreObserver, CollisionDetector collisionDetector) {
         this.snakeGame = snakeGame;
         this.snakeScreen = snakeScreen;
@@ -26,7 +29,8 @@ public class FoodGenerator {
     }
 
     public void generateFood() {
-        Position position = new Position(15, 10);
+        Position position = positionHelper.generateFreePosition(snakeScreen.getOccupiedPositions());
+
         Food newFood = FoodFactory.generateFood(foodCounter, snakeGame, position, scoreObserver);
         snakeScreen.addGameElement(newFood);
         collisionDetector.addElementOnScreen(newFood);

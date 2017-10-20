@@ -24,7 +24,7 @@ public abstract class MoveableObject extends PaintableObject {
         return position;
     }
 
-    private Position setAndGetNewPosition(MoveablePosition newPosition) {
+    protected Position setAndGetNewPosition(MoveablePosition newPosition) {
         this.position = newPosition;
         return position;
     }

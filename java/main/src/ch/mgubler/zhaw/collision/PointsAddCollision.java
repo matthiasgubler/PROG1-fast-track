@@ -2,6 +2,7 @@ package ch.mgubler.zhaw.collision;
 
 import ch.mgubler.zhaw.SnakeGame;
 import ch.mgubler.zhaw.objects.Food;
+import ch.mgubler.zhaw.objects.Snake;
 
 public class PointsAddCollision extends CollisionBehaviour {
 
@@ -13,9 +14,10 @@ public class PointsAddCollision extends CollisionBehaviour {
     }
 
     @Override
-    public void collide() {
+    public void collide(Snake collider) {
         collidingObject.getFoodPointsObservable().notifyObserversScoreChange(collidingObject.getFoodPoints());
         snakeGame.getGameSnakeScreen().removeGameElement(collidingObject);
-        //Todo FoodGenerator generateFood
+        snakeGame.generateFood();
+        collider.grow();
     }
 }

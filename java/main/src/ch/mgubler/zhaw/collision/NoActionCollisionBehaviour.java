@@ -2,6 +2,7 @@ package ch.mgubler.zhaw.collision;
 
 import ch.mgubler.zhaw.SnakeGame;
 import ch.mgubler.zhaw.move.PaintableObject;
+import ch.mgubler.zhaw.objects.Snake;
 
 public class NoActionCollisionBehaviour extends CollisionBehaviour {
 
@@ -10,7 +11,7 @@ public class NoActionCollisionBehaviour extends CollisionBehaviour {
     }
 
     @Override
-    public void collide() {
+    public void collide(Snake collider) {
         //Nothing to do here
     }
 }

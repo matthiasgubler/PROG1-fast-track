@@ -2,6 +2,7 @@ package ch.mgubler.zhaw.collision;
 
 import ch.mgubler.zhaw.SnakeGame;
 import ch.mgubler.zhaw.move.PaintableObject;
+import ch.mgubler.zhaw.objects.Snake;
 
 public abstract class CollisionBehaviour {
 
@@ -14,7 +15,7 @@ public abstract class CollisionBehaviour {
         this.collidingObject = collidingObject;
     }
 
-    public abstract void collide();
+    public abstract void collide(Snake collider);
 
     public SnakeGame getSnakeGame() {
         return snakeGame;
