@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class FoodPointsObservableTest {
 
-    public static final int SCORE_TO_ADD = 20;
+    private static final int SCORE_TO_ADD = 20;
 
     private FoodPointsObservable foodPointsObservableTestee;
 

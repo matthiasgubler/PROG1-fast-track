@@ -9,14 +9,10 @@ public enum Direction {
     RIGHT('d'),
     UNDEF('x');
 
-    private char directionKey;
+    private final char directionKey;
 
     Direction(char directionKey) {
         this.directionKey = directionKey;
-    }
-
-    public char getDirectionKey() {
-        return directionKey;
     }
 
     public static Direction getDirectionByKeyStroke(KeyStroke keyStroke) {
@@ -33,7 +29,7 @@ public enum Direction {
         }
 
         for (Direction direction : Direction.values()) {
-            if (direction.getDirectionKey() == directionKey) {
+            if (direction.directionKey == directionKey) {
                 return direction;
             }
         }

@@ -33,15 +33,15 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class SnakeScreenTest {
 
-    public static final int WALL_COUNT = 2;
+    private static final int WALL_COUNT = 2;
 
-    public static final BinaryOperator<String> STRING_CONCATENATOR = (s, s2) -> s + s2;
+    private static final BinaryOperator<String> STRING_CONCATENATOR = (s, s2) -> s + s2;
 
     private static final String WALL_TOP_BOTTOM = IntStream.range(0, SnakeGame.SCREEN_WIDTH).mapToObj(counter -> String.valueOf(WALL_CHAR)).reduce(STRING_CONCATENATOR).get();
 
-    public static final int FIELDS_COUNT = SnakeGame.SCREEN_WIDTH - WALL_COUNT;
+    private static final int FIELDS_COUNT = SnakeGame.SCREEN_WIDTH - WALL_COUNT;
 
-    public static final int ROWS_COUNT = SCREEN_HEIGHT - WALL_COUNT;
+    private static final int ROWS_COUNT = SCREEN_HEIGHT - WALL_COUNT;
 
     private static final String LINE_CONTENT = IntStream.range(0, FIELDS_COUNT).mapToObj(counter -> String.valueOf(BLANK_FIELD)).reduce(STRING_CONCATENATOR).get();
 
@@ -55,7 +55,7 @@ public class SnakeScreenTest {
 
     private static final int OTHER_CHARACTERS_ON_SCREEN = 8;
 
-    {
+    static {
         //Init Expected Game Matrix with Walls on Top/Bottom and the regular Fieldcontent
         INIT_SCREEN_EXPECTED[0] = WALL_TOP_BOTTOM_CHAR_ARRAY;
         for (int arraysCounter = 1; arraysCounter <= ROWS_COUNT; arraysCounter++) {
@@ -64,7 +64,7 @@ public class SnakeScreenTest {
         INIT_SCREEN_EXPECTED[SCREEN_HEIGHT - 1] = WALL_TOP_BOTTOM_CHAR_ARRAY;
     }
 
-    private static int COUNT_WALL_ELEMENTS = (SnakeGame.SCREEN_WIDTH * SnakeGame.SCREEN_HEIGHT) - (SnakeGame.SCREEN_WIDTH-2) * (SnakeGame.SCREEN_HEIGHT -2);
+    private final static int COUNT_WALL_ELEMENTS = (SnakeGame.SCREEN_WIDTH * SnakeGame.SCREEN_HEIGHT) - (SnakeGame.SCREEN_WIDTH - 2) * (SnakeGame.SCREEN_HEIGHT - 2);
 
     private SnakeScreen snakeScreenTestee;
 
@@ -146,11 +146,11 @@ public class SnakeScreenTest {
     @Test
     public void getOccupiedPositions_with_one_element() throws Exception {
         PaintableObject paintableObjectMock = mock(PaintableObject.class);
-        when(paintableObjectMock.getPosition()).thenReturn(new Position(7,7));
+        when(paintableObjectMock.getPosition()).thenReturn(new Position(7, 7));
         snakeScreenTestee.setElementOnScreen(paintableObjectMock);
 
         List<Position> occupiedPositions = snakeScreenTestee.getOccupiedPositions();
-        assertEquals(COUNT_WALL_ELEMENTS+1, occupiedPositions.size());
+        assertEquals(COUNT_WALL_ELEMENTS + 1, occupiedPositions.size());
     }
 
 }

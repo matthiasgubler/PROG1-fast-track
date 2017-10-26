@@ -21,28 +21,29 @@ public class SnakeGame {
     public static final int SCREEN_WIDTH = 50;
 
     public static final int SCREEN_HEIGHT = 20;
-    public static final int GAME_SPEED = 100;
-    public static final int SNAKE_START_Y = 5;
-    public static final int SNAKE_START_X = 5;
-    public static final int TERMINAL_SIZE_ADD = 10;
-    public static final String FONT_NAME = "Courier New";
-    public static final int INITIAL_SNAKE_SIZE = 3;
 
-    private SnakeScreen gameSnakeScreen;
+    private static final int GAME_SPEED = 100;
+    private static final int SNAKE_START_Y = 5;
+    private static final int SNAKE_START_X = 5;
+    private static final int TERMINAL_SIZE_ADD = 10;
+    private static final String FONT_NAME = "Courier New";
+    private static final int INITIAL_SNAKE_SIZE = 3;
 
-    private GameScore gameScore;
+    private final SnakeScreen gameSnakeScreen;
+
+    private final GameScore gameScore;
 
     private Terminal terminal;
 
     private Screen screen;
 
-    private ObjectMover mover;
+    private final ObjectMover mover;
 
-    private CollisionDetector collisionDetector;
+    private final CollisionDetector collisionDetector;
 
-    private Snake snake;
+    private final Snake snake;
 
-    private FoodGenerator foodGenerator;
+    private final FoodGenerator foodGenerator;
 
     private boolean running = true;
 
@@ -128,10 +129,6 @@ public class SnakeGame {
         gameSnakeScreen.setInfoTextOnScreen("XXXXXXXXXXXX______Game Over!______XXXXXXXXXXXX");
         gameSnakeScreen.writeInfoTextOnScreen();
         running = false;
-    }
-
-    public GameScore getGameScore() {
-        return gameScore;
     }
 
     public SnakeScreen getGameSnakeScreen() {

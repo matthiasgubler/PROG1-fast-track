@@ -12,22 +12,21 @@ import java.util.stream.IntStream;
 
 public class Snake extends MoveableObject {
 
-    public static final char SNAKE_SYMBOL = '@';
+    private static final char SNAKE_SYMBOL = '@';
 
-    private List<SnakeElement> snakeElements = new ArrayList<>();
+    private final List<SnakeElement> snakeElements = new ArrayList<>();
 
-    private SnakeGame snakeGame;
+    private final SnakeGame snakeGame;
 
     public Snake(SnakeGame snakeGame, MoveablePosition position) {
         super(SNAKE_SYMBOL, position);
-        setCollisionBehaviour(new GameOverCollision(snakeGame, this));
+        setCollisionBehaviour(new GameOverCollision(snakeGame));
         this.snakeGame = snakeGame;
     }
 
     @Override
     public Position move() {
-        MoveablePosition currentHeadPosition = getPosition();
-        MoveablePosition lastElementPosition = currentHeadPosition;
+        MoveablePosition lastElementPosition = getPosition();
 
         for (SnakeElement snakeElement : snakeElements) {
             MoveablePosition currentPosition = snakeElement.getPosition();
@@ -37,12 +36,12 @@ public class Snake extends MoveableObject {
         return super.move();
     }
 
-    public void addElement(SnakeElement snakeElement) {
-        snakeElements.add(snakeElement);
-    }
-
     public SnakeElement getElementAtIndex(int i) {
         return snakeElements.get(i);
+    }
+
+    private void addElement(SnakeElement snakeElement) {
+        snakeElements.add(snakeElement);
     }
 
     private Snake getLastElement() {
@@ -57,9 +56,7 @@ public class Snake extends MoveableObject {
     }
 
     public void grow(int growTimes) {
-        IntStream.range(0, growTimes).forEach(i -> {
-            this.grow();
-        });
+        IntStream.range(0, growTimes).forEach(i -> this.grow());
     }
 
     public void grow() {

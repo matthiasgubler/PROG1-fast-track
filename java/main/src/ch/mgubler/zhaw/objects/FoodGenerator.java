@@ -11,15 +11,15 @@ public class FoodGenerator {
 
     private int foodCounter = 1;
 
-    private SnakeGame snakeGame;
+    private final SnakeGame snakeGame;
 
-    private SnakeScreen snakeScreen;
+    private final SnakeScreen snakeScreen;
 
-    private ScoreObserver scoreObserver;
+    private final ScoreObserver scoreObserver;
 
-    private CollisionDetector collisionDetector;
+    private final CollisionDetector collisionDetector;
 
-    private PositionHelper positionHelper = new PositionHelper();
+    private final PositionHelper positionHelper = new PositionHelper();
 
     public FoodGenerator(SnakeGame snakeGame, SnakeScreen snakeScreen, ScoreObserver scoreObserver, CollisionDetector collisionDetector) {
         this.snakeGame = snakeGame;

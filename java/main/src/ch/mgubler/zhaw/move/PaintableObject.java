@@ -7,12 +7,12 @@ public abstract class PaintableObject {
 
     private CollisionBehaviour collisionBehaviour;
 
-    private char symbol;
+    private final char symbol;
 
-    private Position position;
+    private final Position position;
 
     public PaintableObject(char symbol, Position position) {
-        this.collisionBehaviour = new NoActionCollisionBehaviour(null, this);
+        this.collisionBehaviour = new NoActionCollisionBehaviour(null);
         this.symbol = symbol;
         this.position = position;
     }
@@ -29,7 +29,7 @@ public abstract class PaintableObject {
         return collisionBehaviour;
     }
 
-    public void setCollisionBehaviour(CollisionBehaviour collisionBehaviour) {
+    protected void setCollisionBehaviour(CollisionBehaviour collisionBehaviour) {
         this.collisionBehaviour = collisionBehaviour;
     }
 }

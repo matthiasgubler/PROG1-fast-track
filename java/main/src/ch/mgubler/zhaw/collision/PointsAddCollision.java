@@ -6,10 +6,10 @@ import ch.mgubler.zhaw.objects.Snake;
 
 public class PointsAddCollision extends CollisionBehaviour {
 
-    private Food collidingObject;
+    private final Food collidingObject;
 
     public PointsAddCollision(SnakeGame snakeGame, Food collidingObject) {
-        super(snakeGame, collidingObject);
+        super(snakeGame);
         this.collidingObject = collidingObject;
     }
 

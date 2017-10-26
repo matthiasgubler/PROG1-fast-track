@@ -1,13 +1,12 @@
 package ch.mgubler.zhaw.collision;
 
 import ch.mgubler.zhaw.SnakeGame;
-import ch.mgubler.zhaw.move.PaintableObject;
 import ch.mgubler.zhaw.objects.Snake;
 
 public class GameOverCollision extends CollisionBehaviour {
 
-    public GameOverCollision(SnakeGame snakeGame, PaintableObject paintableObject) {
-        super(snakeGame, paintableObject);
+    public GameOverCollision(SnakeGame snakeGame) {
+        super(snakeGame);
     }
 
     @Override

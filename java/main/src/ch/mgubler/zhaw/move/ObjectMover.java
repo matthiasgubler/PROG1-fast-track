@@ -7,9 +7,9 @@ import java.text.MessageFormat;
 
 public class ObjectMover {
 
-    private Terminal terminal;
+    private final Terminal terminal;
 
-    private MoveableObject moveableObject;
+    private final MoveableObject moveableObject;
 
     public ObjectMover(Terminal terminal, MoveableObject moveableObject) {
         this.terminal = terminal;

@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class ScoreObservable {
 
-    private List<ScoreObserver> scoreObserverList = new ArrayList<>();
+    private final List<ScoreObserver> scoreObserverList = new ArrayList<>();
 
     public ScoreObservable(ScoreObserver scoreObserver) {
         registerObserver(scoreObserver);

@@ -23,7 +23,7 @@ public class PositionHelper {
     }
 
     public static boolean isPositionOccupied(List<Position> occupiedPositions, Position positionToCheck) {
-        return occupiedPositions.stream().filter(occupiedPosition -> occupiedPosition.equals(positionToCheck)).findAny().isPresent();
+        return occupiedPositions.stream().anyMatch(occupiedPosition -> occupiedPosition.equals(positionToCheck));
     }
 
     public void setRandom(Random random) {

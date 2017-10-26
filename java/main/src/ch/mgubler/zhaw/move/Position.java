@@ -2,9 +2,9 @@ package ch.mgubler.zhaw.move;
 
 public class Position {
 
-    private int x;
+    private final int x;
 
-    private int y;
+    private final int y;
 
     public Position(int x, int y) {
         this.x = x;
@@ -25,11 +25,7 @@ public class Position {
         if (o == null || !(o instanceof Position)) return false;
 
         Position position = (Position) o;
-
-        if (x != position.x){
-            return false;
-        }
-        return y == position.y;
+        return x == position.x && y == position.y;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class CollisionDetector {
 
     private final Snake paintableObjectSnake;
 
-    public List<PaintableObject> elementsOnScreen = new ArrayList<>();
+    private final List<PaintableObject> elementsOnScreen = new ArrayList<>();
 
     public CollisionDetector(Snake paintableObjectSnake) {
         this.paintableObjectSnake = paintableObjectSnake;

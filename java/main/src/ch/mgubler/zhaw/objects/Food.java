@@ -9,13 +9,13 @@ import ch.mgubler.zhaw.score.ScoreObserver;
 
 public class Food extends PaintableObject {
 
-    public static final char FOOD_SYMBOL = '*';
+    private static final char FOOD_SYMBOL = '*';
 
-    public static final int FOOD_POINTS = 5;
+    private static final int FOOD_POINTS = 5;
 
     private int foodPoints = FOOD_POINTS;
 
-    private FoodPointsObservable foodPointsObservable;
+    private final FoodPointsObservable foodPointsObservable;
 
     public Food(SnakeGame snakeGame, Position position, ScoreObserver scoreObserver) {
         this(snakeGame, FOOD_SYMBOL, position, FOOD_POINTS, scoreObserver);

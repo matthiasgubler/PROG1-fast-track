@@ -20,31 +20,31 @@ public class SnakeScreen {
 
     public static final int INFO_TEXT_START_COLUMN = 2;
 
-    public static final int SCORE_TEXT_ROW = 3;
-
-    public static final int SCORE_TEXT_START_COLUMN = 2;
-
-    public static final int HEADER_GAP = 5;
-
     public static final char BLANK_FIELD = ' ';
 
     public static final char WALL_CHAR = 'X';
 
-    public static final String SCORE_TITLE = "Score: ";
+    private static final int SCORE_TEXT_ROW = 3;
 
-    private int width;
+    private static final int SCORE_TEXT_START_COLUMN = 2;
 
-    private int height;
+    private static final int HEADER_GAP = 5;
 
-    private Character[][] screenMatrix;
+    private static final String SCORE_TITLE = "Score: ";
 
-    private Screen screen;
+    private final int width;
 
-    private List<PaintableObject> gameElements = new ArrayList<>();
+    private final int height;
 
-    private Snake mainObject;
+    private final Character[][] screenMatrix;
 
-    private GameScore gameScore;
+    private final Screen screen;
+
+    private final List<PaintableObject> gameElements = new ArrayList<>();
+
+    private final Snake mainObject;
+
+    private final GameScore gameScore;
 
     private char[] infoText = {};
 
@@ -151,7 +151,7 @@ public class SnakeScreen {
         refreshScreen();
     }
 
-    public void displayTexts() {
+    private void displayTexts() {
         displayInfoText();
         displayScore();
     }
@@ -193,11 +193,11 @@ public class SnakeScreen {
         this.gameElements.remove(gameElement);
     }
 
-    public List<Position> getOccupiedPositions(){
+    public List<Position> getOccupiedPositions() {
         List<Position> occupiedPositions = new ArrayList<>();
         for (int rowIndex = 0; rowIndex < screenMatrix.length; rowIndex++) {
             for (int columnIndex = 0; columnIndex < screenMatrix[rowIndex].length; columnIndex++) {
-                if(!Character.isWhitespace(screenMatrix[rowIndex][columnIndex])){
+                if (!Character.isWhitespace(screenMatrix[rowIndex][columnIndex])) {
                     occupiedPositions.add(new Position(columnIndex, rowIndex));
                 }
             }

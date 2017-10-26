@@ -7,7 +7,7 @@ public abstract class MoveableObject extends PaintableObject {
     //Default start direction is Right
     private Direction currentDirection = Direction.RIGHT;
 
-    public MoveableObject(char symbol, MoveablePosition position) {
+    protected MoveableObject(char symbol, MoveablePosition position) {
         super(symbol, position);
         this.position = position;
     }
