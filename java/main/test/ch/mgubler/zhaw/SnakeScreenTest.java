@@ -131,6 +131,13 @@ public class SnakeScreenTest {
     }
 
     @Test
+    public void writeInfoTextOnScreen() throws Exception {
+        snakeScreenTestee.writeInfoTextOnScreen();
+        verify(screenMock, times(8)).setCharacter(any(), any());
+        verify(screenMock).refresh();
+    }
+
+    @Test
     public void getOccupiedPositions_only_walls() throws Exception {
         List<Position> occupiedPositions = snakeScreenTestee.getOccupiedPositions();
         assertEquals(COUNT_WALL_ELEMENTS, occupiedPositions.size());

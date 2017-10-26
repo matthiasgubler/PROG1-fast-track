@@ -106,7 +106,7 @@ public class SnakeScreen {
                 screen.setCharacter(new TerminalPosition(columnIndex, rowIndex + HEADER_GAP), new TextCharacter(screenMatrix[rowIndex][columnIndex]));
             }
         }
-        displayTextes();
+        displayTexts();
         try {
             screen.refresh();
         } catch (IOException e) {
@@ -147,11 +147,11 @@ public class SnakeScreen {
     }
 
     public void writeInfoTextOnScreen() {
-        displayTextes();
+        displayTexts();
         refreshScreen();
     }
 
-    public void displayTextes() {
+    public void displayTexts() {
         displayInfoText();
         displayScore();
     }
