@@ -1,18 +1,11 @@
 package ch.mgubler.zhaw.move;
 
-import ch.mgubler.zhaw.collision.CollisionBehaviour;
-
 public abstract class MoveableObject extends PaintableObject {
 
     private MoveablePosition position;
 
     //Default start direction is Right
     private Direction currentDirection = Direction.RIGHT;
-
-    public MoveableObject(CollisionBehaviour collisionBehaviour, char symbol, MoveablePosition position) {
-        super(collisionBehaviour, symbol, position);
-        this.position = position;
-    }
 
     public MoveableObject(char symbol, MoveablePosition position) {
         super(symbol, position);

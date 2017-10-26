@@ -146,6 +146,4 @@ public class SnakeScreenTest {
         assertEquals(COUNT_WALL_ELEMENTS+1, occupiedPositions.size());
     }
 
-
-
 }

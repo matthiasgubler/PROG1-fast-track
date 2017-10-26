@@ -26,4 +26,7 @@ public class PositionHelper {
         return occupiedPositions.stream().filter(occupiedPosition -> occupiedPosition.equals(positionToCheck)).findAny().isPresent();
     }
 
+    public void setRandom(Random random) {
+        this.random = random;
+    }
 }

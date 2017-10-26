@@ -137,10 +137,6 @@ public class SnakeScreen {
         return screenMatrix;
     }
 
-    public Character getElementOnScreen(int x, int y) {
-        return this.screenMatrix[x][y];
-    }
-
     public void setElementOnScreen(PaintableObject paintableObject) {
         System.out.println(MessageFormat.format("Painting element with Symbol ''{0}'' to Position [{1}][{2}]", paintableObject.getSymbol(), paintableObject.getPosition().getX(), paintableObject.getPosition().getY()));
         this.screenMatrix[paintableObject.getPosition().getY()][paintableObject.getPosition().getX()] = paintableObject.getSymbol();
@@ -187,43 +183,6 @@ public class SnakeScreen {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setScreenMatrix(Character[][] screenMatrix) {
-        this.screenMatrix = screenMatrix;
-    }
-
-    public Screen getScreen() {
-        return screen;
-    }
-
-    public void setScreen(Screen screen) {
-        this.screen = screen;
-    }
-
-    public Snake getMainObject() {
-        return mainObject;
-    }
-
-    public void setMainObject(Snake mainObject) {
-        this.mainObject = mainObject;
     }
 
     public void addGameElement(PaintableObject gameElement) {

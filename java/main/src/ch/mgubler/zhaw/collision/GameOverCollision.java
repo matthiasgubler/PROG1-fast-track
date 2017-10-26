@@ -6,7 +6,6 @@ import ch.mgubler.zhaw.objects.Snake;
 
 public class GameOverCollision extends CollisionBehaviour {
 
-
     public GameOverCollision(SnakeGame snakeGame, PaintableObject paintableObject) {
         super(snakeGame, paintableObject);
     }

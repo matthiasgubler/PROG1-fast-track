@@ -17,12 +17,6 @@ public abstract class PaintableObject {
         this.position = position;
     }
 
-    public PaintableObject(CollisionBehaviour collisionBehaviour, char symbol, Position position) {
-        this.collisionBehaviour = collisionBehaviour;
-        this.symbol = symbol;
-        this.position = position;
-    }
-
     public char getSymbol() {
         return symbol;
     }

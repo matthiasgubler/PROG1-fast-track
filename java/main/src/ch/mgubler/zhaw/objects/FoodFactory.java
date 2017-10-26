@@ -7,7 +7,6 @@ import ch.mgubler.zhaw.score.ScoreObserver;
 public class FoodFactory {
 
     private FoodFactory(){
-
     }
 
     public static Food generateFood(int counter, SnakeGame snakeGame, Position position, ScoreObserver scoreObserver){
